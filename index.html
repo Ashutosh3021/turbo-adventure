@@ -6,10 +6,10 @@
     <meta name="theme-color" content="#1e90ff">
     <meta name="description" content="Multi-Personality Chat - AI Assistant Suite">
     <link rel="manifest" href="/turbo-adventure/site.webmanifest">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="apple-touch-icon" href="/turbo-adventure/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="/turbo-adventure/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/turbo-adventure/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/turbo-adventure/favicon-16x16.png">
     <title>Multi-Personality Chat - AI Assistant Suite</title>
     <style>
         :root {
@@ -1750,48 +1750,15 @@
     
     <!-- Service Worker Registration -->
     <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', function() {
-                // Register service worker with error handling
-                const swPath = './sw.js';
-                navigator.serviceWorker.register(swPath)
-                    .then(function(registration) {
-                        console.log('SW registered: ', registration);
-                    })
-                    .catch(function(registrationError) {
-                        console.log('SW registration failed: ', registrationError);
-                        // Don't let SW registration errors break the app
-                    });
-            });
-        }
-    </script>
-    
-    <script>
-
-if ('serviceWorker' in navigator) {
-
-  window.addEventListener('load', () => {
-
-    navigator.serviceWorker.register('/turbo-adventure/sw.js', {
-  scope: '/turbo-adventure/'
-})
-
-      .then(registration => {
-
-        console.log('SW registered:', registration);
-
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/turbo-adventure/sw.js', {
+        scope: '/turbo-adventure/'
       })
-
-      .catch(error => {
-
-        console.log('SW registration failed:', error);
-
-      });
-
-  });
-
-}
-
+      .then(registration => console.log('SW registered:', registration))
+      .catch(error => console.log('SW registration failed:', error));
+    });
+  }
 </script>
 </body>
 </html>
