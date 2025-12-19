@@ -1752,8 +1752,8 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                // Register service worker with proper scope for GitHub Pages
-                const swPath = '/CAREER--guide/sw.js';
+                // Register service worker
+                const swPath = './sw.js';
                 navigator.serviceWorker.register(swPath)
                     .then(function(registration) {
                         console.log('SW registered: ', registration);
