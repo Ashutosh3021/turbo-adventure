@@ -2,13 +2,15 @@
 const CACHE_NAME = 'chat-pwa-v1.0';
 const urlsToCache = [
   '/',
+  '/CAREER--guide/',
+  '/CAREER--guide/index.html',
   '/index.html',
-  '/android-chrome-192x192.png',
-  '/android-chrome-512x512.png',
-  '/apple-touch-icon.png',
-  '/favicon-16x16.png',
-  '/favicon-32x32.png',
-  '/favicon.ico',
+  '/CAREER--guide/android-chrome-192x192.png',
+  '/CAREER--guide/android-chrome-512x512.png',
+  '/CAREER--guide/apple-touch-icon.png',
+  '/CAREER--guide/favicon-16x16.png',
+  '/CAREER--guide/favicon-32x32.png',
+  '/CAREER--guide/favicon.ico',
   '/site.webmanifest'
 ];
 
@@ -96,6 +98,12 @@ self.addEventListener('fetch', event => {
                 });
                 
               return response;
+            })
+            .catch(() => {
+              // Fallback for offline access
+              if (event.request.mode === 'navigate') {
+                return caches.match('/index.html');
+              }
             });
         })
     );
@@ -138,8 +146,8 @@ self.addEventListener('push', event => {
   const title = 'New Message';
   const options = {
     body: 'You have a new message in your chat',
-    icon: '/android-chrome-192x192.png',
-    badge: '/favicon-32x32.png'
+    icon: '/CAREER--guide/android-chrome-192x192.png',
+    badge: '/CAREER--guide/favicon-32x32.png'
   };
   
   event.waitUntil(self.registration.showNotification(title, options));
@@ -149,6 +157,6 @@ self.addEventListener('push', event => {
 self.addEventListener('notificationclick', event => {
   event.notification.close();
   event.waitUntil(
-    clients.openWindow('/index.html')
+    clients.openWindow('/CAREER--guide/')
   );
 });
