@@ -15,7 +15,7 @@ A Progressive Web App (PWA) that allows you to chat with multiple AI personaliti
 
 ## Installation
 
-1. Visit [https://ashutosh3021.github.io/CAREER--guide/](https://ashutosh3021.github.io/CAREER--guide/)
+1. Visit [[https://ashutosh3021.github.io/CAREER--guide/](https://github.com/Ashutosh3021/turbo-adventure)
 2. Click the install button in your browser's address bar (if available)
 3. Or manually add to home screen:
    - **Chrome**: Menu → More Tools → Create Shortcut
