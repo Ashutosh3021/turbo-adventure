@@ -314,6 +314,11 @@
             .header {
                 padding: 12px 16px;
             }
+            
+            /* Increase assistant message bubble width on mobile for better readability */
+            .message.assistant .message-bubble {
+                max-width: 85%;
+            }
         }
 
         .sidebar-title {
@@ -1117,6 +1122,9 @@
             } else if (state.currentCharacterId) {
                 renderChat();
             }
+            
+            // Update the header to show the current character name
+            updateCurrentCharName();
 
             // Load model settings
             document.getElementById('modelSelect').value = state.model;
@@ -1172,7 +1180,8 @@
             ];
 
             state.characters = defaults;
-            state.currentCharacterId = 'jarvis';
+            // Use the last selected character if available, otherwise default to JARVIS
+            state.currentCharacterId = localStorage.getItem('currentCharacterId') || 'jarvis';
             saveCharacters();
             renderCharacterList();
             renderChat();
@@ -1188,6 +1197,13 @@
             if (saved) {
                 state.characters = JSON.parse(saved);
                 state.currentCharacterId = localStorage.getItem('currentCharacterId') || state.characters[0]?.id;
+            } else {
+                // If no characters are saved, we'll create defaults in createDefaultCharacters
+                // But we still want to preserve the last selected character if it exists
+                const savedCharacterId = localStorage.getItem('currentCharacterId');
+                if (savedCharacterId) {
+                    state.currentCharacterId = savedCharacterId;
+                }
             }
         }
 
