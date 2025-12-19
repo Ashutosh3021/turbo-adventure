@@ -27,6 +27,15 @@ jobs:
       - name: Setup Pages
         uses: actions/configure-pages@v3
 
+      - name: Verify Files
+        run: |
+          echo "Listing files in directory:"
+          ls -la
+          echo "Checking if required files exist:"
+          test -f index.html && echo "index.html exists" || echo "index.html missing"
+          test -f site.webmanifest && echo "site.webmanifest exists" || echo "site.webmanifest missing"
+          test -f sw.js && echo "sw.js exists" || echo "sw.js missing"
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
