@@ -1,15 +1,15 @@
 // Service Worker for Multi-Personality Chat PWA
 const CACHE_NAME = 'chat-pwa-v1.0';
 const urlsToCache = [
-  './',
-  './index.html',
-  './android-chrome-192x192.png',
-  './android-chrome-512x512.png',
-  './apple-touch-icon.png',
-  './favicon-16x16.png',
-  './favicon-32x32.png',
-  './favicon.ico',
-  './site.webmanifest'
+  '/turbo-adventure/',
+  '/turbo-adventure/index.html',
+  '/turbo-adventure/android-chrome-192x192.png',
+  '/turbo-adventure/android-chrome-512x512.png',
+  '/turbo-adventure/apple-touch-icon.png',
+  '/turbo-adventure/favicon-16x16.png',
+  '/turbo-adventure/favicon-32x32.png',
+  '/turbo-adventure/favicon.ico',
+  '/turbo-adventure/site.webmanifest'
 ];
 
 // Install event - cache static assets
@@ -60,9 +60,7 @@ self.addEventListener('fetch', event => {
                       }
                     }]
                   }),
-                  {
-                    headers: { 'Content-Type': 'application/json' }
-                  }
+                  { headers: { 'Content-Type': 'application/json' } }
                 );
               }
             });
