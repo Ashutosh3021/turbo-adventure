@@ -98,7 +98,8 @@ self.addEventListener('fetch', event => {
             .catch(() => {
               // Fallback for offline access
               if (event.request.mode === 'navigate') {
-                return caches.match('./index.html');
+                return caches.match('/turbo-adventure/index.html'); 
+
               }
             });
         })
@@ -142,8 +143,8 @@ self.addEventListener('push', event => {
   const title = 'New Message';
   const options = {
     body: 'You have a new message in your chat',
-    icon: './android-chrome-192x192.png',
-    badge: './favicon-32x32.png'
+    icon: '/turbo-adventure/android-chrome-192x192.png',
+    badge: '/turbo-adventure/favicon-32x32.png'
   };
   
   event.waitUntil(self.registration.showNotification(title, options));
@@ -153,6 +154,6 @@ self.addEventListener('push', event => {
 self.addEventListener('notificationclick', event => {
   event.notification.close();
   event.waitUntil(
-    clients.openWindow('./')
+    clients.openWindow('/turbo-adventure/')
   );
 });
