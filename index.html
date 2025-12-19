@@ -1752,7 +1752,7 @@
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
-                // Register service worker
+                // Register service worker with error handling
                 const swPath = './sw.js';
                 navigator.serviceWorker.register(swPath)
                     .then(function(registration) {
@@ -1760,6 +1760,7 @@
                     })
                     .catch(function(registrationError) {
                         console.log('SW registration failed: ', registrationError);
+                        // Don't let SW registration errors break the app
                     });
             });
         }
