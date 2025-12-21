@@ -1,15 +1,15 @@
 // Service Worker for Multi-Personality Chat PWA
 const CACHE_NAME = 'chat-pwa-v1.0';
 const urlsToCache = [
-  '/turbo-adventure/',
-  '/turbo-adventure/index.html',
-  '/turbo-adventure/android-chrome-192x192.png',
-  '/turbo-adventure/android-chrome-512x512.png',
-  '/turbo-adventure/apple-touch-icon.png',
-  '/turbo-adventure/favicon-16x16.png',
-  '/turbo-adventure/favicon-32x32.png',
-  '/turbo-adventure/favicon.ico',
-  '/turbo-adventure/site.webmanifest'
+  '/',
+  '/index.html',
+  '/android-chrome-192x192.png',
+  '/android-chrome-512x512.png',
+  '/apple-touch-icon.png',
+  '/favicon-16x16.png',
+  '/favicon-32x32.png',
+  '/favicon.ico',
+  '/site.webmanifest'
 ];
 
 // Install event - cache static assets
@@ -98,7 +98,7 @@ self.addEventListener('fetch', event => {
             .catch(() => {
               // Fallback for offline access
               if (event.request.mode === 'navigate') {
-                return caches.match('/turbo-adventure/index.html'); 
+                return caches.match('/index.html'); 
 
               }
             });
@@ -143,8 +143,8 @@ self.addEventListener('push', event => {
   const title = 'New Message';
   const options = {
     body: 'You have a new message in your chat',
-    icon: '/turbo-adventure/android-chrome-192x192.png',
-    badge: '/turbo-adventure/favicon-32x32.png'
+    icon: '/android-chrome-192x192.png',
+    badge: '/favicon-32x32.png'
   };
   
   event.waitUntil(self.registration.showNotification(title, options));
@@ -154,6 +154,6 @@ self.addEventListener('push', event => {
 self.addEventListener('notificationclick', event => {
   event.notification.close();
   event.waitUntil(
-    clients.openWindow('/turbo-adventure/')
+    clients.openWindow('/')
   );
 });

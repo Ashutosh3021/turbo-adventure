@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
     <meta name="theme-color" content="#1e90ff">
     <meta name="description" content="Multi-Personality Chat - AI Assistant Suite">
-    <link rel="manifest" href="/turbo-adventure/site.webmanifest">
-    <link rel="apple-touch-icon" href="/turbo-adventure/apple-touch-icon.png">
-    <link rel="icon" type="image/x-icon" href="/turbo-adventure/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="/turbo-adventure/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/turbo-adventure/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <title>Multi-Personality Chat - AI Assistant Suite</title>
     <style>
         :root {
@@ -102,6 +102,34 @@
             color: white;
         }
 
+        /* Dark theme specific overrides for form elements */
+        [data-theme="dark"] .form-select {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+
+        [data-theme="dark"] .form-select:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        [data-theme="dark"] .form-select option {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        [data-theme="dark"] .form-input {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+
+        [data-theme="dark"] .form-input:focus {
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -134,6 +162,7 @@
             align-items: center;
             border-bottom: 1px solid rgba(30, 144, 255, 0.1);
             transition: background 0.3s ease;
+            min-height: 60px;
         }
 
         .header-left {
@@ -143,8 +172,12 @@
         }
 
         .current-character {
-            font-size: 14px;
+            font-size: 16px;
             color: var(--text-secondary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 150px;
         }
 
         .current-character strong {
@@ -315,9 +348,39 @@
                 padding: 12px 16px;
             }
             
+            /* Improve character list for mobile */
+            .character-item {
+                min-width: auto;
+                padding: 16px 12px;
+            }
+            
             /* Increase assistant message bubble width on mobile for better readability */
             .message.assistant .message-bubble {
                 max-width: 85%;
+            }
+            
+            /* Improve modal for mobile */
+            .modal-content {
+                max-width: 95%;
+                max-height: 90vh;
+                padding: 20px;
+            }
+            
+            /* Improve form elements for mobile */
+            .form-input, .form-select {
+                font-size: 16px; /* Prevent zoom on iOS */
+            }
+            
+            /* Improve button sizing for mobile */
+            .btn-primary, .btn-secondary, .btn-danger {
+                padding: 12px 16px;
+                font-size: 16px;
+            }
+            
+            .icon-btn {
+                width: 44px;
+                height: 44px;
+                font-size: 20px;
             }
         }
 
@@ -351,6 +414,7 @@
             align-items: center;
             position: relative;
             min-width: 180px;
+            margin-bottom: 8px;
         }
 
         .character-item:hover {
@@ -433,11 +497,11 @@
 
         .message-bubble {
             max-width: 70%;
-            padding: 12px 16px;
-            border-radius: var(--border-radius);
+            padding: 14px 16px;
+            border-radius: 18px;
             word-wrap: break-word;
-            font-size: 14px;
-            line-height: 1.4;
+            font-size: 15px;
+            line-height: 1.5;
         }
 
         .message.user .message-bubble {
@@ -564,12 +628,14 @@
             border-top: 1px solid rgba(30, 144, 255, 0.1);
             display: flex;
             gap: 12px;
+            background: var(--surface);
         }
 
         .input-wrapper {
             flex: 1;
             display: flex;
             gap: 8px;
+            align-items: flex-end;
         }
 
         .message-input {
@@ -577,12 +643,13 @@
             background: rgba(30, 144, 255, 0.05);
             border: 1px solid rgba(30, 144, 255, 0.2);
             color: var(--text);
-            padding: 10px 14px;
+            padding: 12px 14px;
             border-radius: var(--border-radius);
             font-size: 14px;
             font-family: inherit;
             resize: none;
-            max-height: 100px;
+            max-height: 150px;
+            min-height: 20px;
             transition: all 0.3s ease;
         }
 
@@ -596,12 +663,13 @@
             background: linear-gradient(135deg, var(--primary), #0066cc);
             border: none;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border-radius: var(--border-radius);
             cursor: pointer;
             font-weight: 500;
             transition: all 0.3s ease;
             font-size: 14px;
+            align-self: flex-end;
         }
 
         .send-btn:hover:not(:disabled) {
@@ -626,6 +694,7 @@
             z-index: 1000;
             align-items: center;
             justify-content: center;
+            padding: 10px;
         }
 
         .modal.active {
@@ -670,7 +739,7 @@
             background: rgba(30, 144, 255, 0.05);
             border: 1px solid rgba(30, 144, 255, 0.2);
             color: var(--text);
-            padding: 10px 12px;
+            padding: 12px;
             border-radius: var(--border-radius);
             font-size: 14px;
             font-family: inherit;
@@ -974,53 +1043,55 @@
 
             <!-- API Settings Tab -->
             <div class="tab-content" data-tab="api-settings" style="display: block;">
-                <div class="form-group">
-                    <label class="form-label">OpenRouter API Key</label>
-                    <input type="password" class="form-input" id="apiKeyInput" placeholder="Paste your OpenRouter API key...">
-                    <small style="color: var(--text-secondary); margin-top: 8px; display: block;">
-                        Get it from <a href="https://openrouter.ai" target="_blank" style="color: var(--primary);">openrouter.ai</a>
-                    </small>
-                </div>
-                
-                <div class="form-group">
-                    <label class="form-label">Model Selection</label>
-                    <select class="form-select" id="modelSelect">
-                        <option value="meta-llama/llama-3.3-70b-instruct:free">Llama 3.3 70B Instruct (Free)</option>
-                        <option value="meta-llama/llama-2-70b-chat:free">Llama 2 70B Chat (Free)</option>
-                        <option value="mistralai/mistral-7b-instruct:free">Mistral 7B Instruct (Free)</option>
-                    </select>
-                </div>
+                <form id="apiSettingsForm">
+                    <div class="form-group">
+                        <label class="form-label">OpenRouter API Key</label>
+                        <input type="password" class="form-input" id="apiKeyInput" placeholder="Paste your OpenRouter API key...">
+                        <small style="color: var(--text-secondary); margin-top: 8px; display: block;">
+                            Get it from <a href="https://openrouter.ai" target="_blank" style="color: var(--primary);">openrouter.ai</a>
+                        </small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Model Selection</label>
+                        <select class="form-select" id="modelSelect">
+                            <option value="meta-llama/llama-3.3-70b-instruct:free">Llama 3.3 70B Instruct (Free)</option>
+                            <option value="meta-llama/llama-2-70b-chat:free">Llama 2 70B Chat (Free)</option>
+                            <option value="mistralai/mistral-7b-instruct:free">Mistral 7B Instruct (Free)</option>
+                        </select>
+                    </div>
 
-                <div class="form-group">
-                    <label class="form-label">Temperature</label>
-                    <div class="slider-group">
-                        <div class="slider-label">
-                            <span>Focused</span>
-                            <span id="tempValue">0.7</span>
-                            <span>Creative</span>
+                    <div class="form-group">
+                        <label class="form-label">Temperature</label>
+                        <div class="slider-group">
+                            <div class="slider-label">
+                                <span>Focused</span>
+                                <span id="tempValue">0.7</span>
+                                <span>Creative</span>
+                            </div>
+                            <input type="range" class="slider" id="tempSlider" min="0" max="2" step="0.1" value="0.7">
                         </div>
-                        <input type="range" class="slider" id="tempSlider" min="0" max="2" step="0.1" value="0.7">
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="form-label">Max Tokens</label>
-                    <div class="slider-group">
-                        <div class="slider-label">
-                            <span>Short</span>
-                            <span id="tokensValue">1000</span>
-                            <span>Long</span>
+                    <div class="form-group">
+                        <label class="form-label">Max Tokens</label>
+                        <div class="slider-group">
+                            <div class="slider-label">
+                                <span>Short</span>
+                                <span id="tokensValue">1000</span>
+                                <span>Long</span>
+                            </div>
+                            <input type="range" class="slider" id="tokensSlider" min="100" max="4000" step="100" value="1000">
                         </div>
-                        <input type="range" class="slider" id="tokensSlider" min="100" max="4000" step="100" value="1000">
                     </div>
-                </div>
 
-                <div class="form-group">
-                    <label class="form-label">Status</label>
-                    <div id="apiStatus" class="status-box error">
-                        ✗ No API key set
+                    <div class="form-group">
+                        <label class="form-label">Status</label>
+                        <div id="apiStatus" class="status-box error">
+                            ✗ No API key set
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
 
             <!-- New Character Tab -->
@@ -1037,8 +1108,34 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">System Prompt</label>
-                    <textarea class="form-input" id="charPromptInput" placeholder="Describe how this character should behave..."></textarea>
+                    <label class="form-label">Profile Picture (Optional)</label>
+                    <input type="file" class="form-input" id="charProfilePicInput" accept="image/*">
+                    <small style="color: var(--text-secondary); margin-top: 8px; display: block;">
+                        Upload a profile picture for this character (JPG, PNG, GIF)
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Model Selection</label>
+                    <select class="form-select" id="charModelSelect">
+                        <option value="meta-llama/llama-3.3-70b-instruct:free">Llama 3.3 70B Instruct (Free) – biggest free model, good context window, better reasoning among the free crowd</option>
+                        <option value="google/gemini-2.0-flash:free">Gemini 2.0 Flash (Free) – long context (~1M tokens) helps maintain logical consistency over long chats</option>
+                        <option value="qwen/qwen-2.5-72B-instruct:free">Qwen 2.5 72B Instruct (Free) – large parameter count + instruction tuning means reasonably solid reasoning</option>
+                        <option value="deepseek/deepseek-r1:free">DeepSeek R1 (Free) – built with reasoning focus, good for logic-heavy queries</option>
+                        <option value="deepseek/deepseek-v3-base:free">DeepSeek V3 Base (Free) – another DeepSeek variant that tends to be solid on generalized thinking tasks</option>
+                        <option value="claude-3.5-haiku:free">Claude 3.5 Haiku (Free) – free Claude has decent logic and instruction following</option>
+                    </select>
+                    <small style="color: var(--text-secondary); margin-top: 8px; display: block;">
+                        Select the AI model this character will use for conversations
+                    </small>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">System Prompts</label>
+                    <div id="charPromptsContainer">
+                        <div class="prompt-item">
+                            <textarea class="form-input" name="charPrompt" placeholder="Describe how this character should behave..."></textarea>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-secondary" id="addCharPromptBtn" style="margin-top: 8px; padding: 6px 12px; font-size: 12px;">+ Add Prompt</button>
                     <small style="color: var(--text-secondary); margin-top: 8px; display: block;">
                         Example: "You are JARVIS, Tony Stark's AI assistant. You are formal, sophisticated, and speak in a British accent."
                     </small>
@@ -1074,10 +1171,29 @@
                     <span style="color: var(--text-secondary); font-size: 13px;">Accent color</span>
                 </div>
             </div>
+            
+            <div class="form-group">
+                <label class="form-label">Model Selection</label>
+                <select class="form-select" id="editCharModel">
+                    <option value="meta-llama/llama-3.3-70b-instruct:free">Llama 3.3 70B Instruct (Free) – biggest free model, good context window, better reasoning among the free crowd</option>
+                    <option value="google/gemini-2.0-flash:free">Gemini 2.0 Flash (Free) – long context (~1M tokens) helps maintain logical consistency over long chats</option>
+                    <option value="qwen/qwen-2.5-72B-instruct:free">Qwen 2.5 72B Instruct (Free) – large parameter count + instruction tuning means reasonably solid reasoning</option>
+                    <option value="deepseek/deepseek-r1:free">DeepSeek R1 (Free) – built with reasoning focus, good for logic-heavy queries</option>
+                    <option value="deepseek/deepseek-v3-base:free">DeepSeek V3 Base (Free) – another DeepSeek variant that tends to be solid on generalized thinking tasks</option>
+                    <option value="claude-3.5-haiku:free">Claude 3.5 Haiku (Free) – free Claude has decent logic and instruction following</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Profile Picture</label>
+                <input type="file" class="form-input" id="editCharProfilePic" accept="image/*">
+                <div id="editCharProfilePreview" style="margin-top: 10px;"></div>
+            </div>
 
             <div class="form-group">
-                <label class="form-label">System Prompt</label>
-                <textarea class="form-input" id="editCharPrompt"></textarea>
+                <label class="form-label">System Prompts</label>
+                <div id="editCharPromptsContainer"></div>
+                <button type="button" class="btn-secondary" id="addEditCharPromptBtn" style="margin-top: 8px; padding: 6px 12px; font-size: 12px;">+ Add Prompt</button>
             </div>
 
             <div class="form-group">
@@ -1156,24 +1272,30 @@
                 {
                     id: 'jarvis',
                     name: 'JARVIS',
-                    systemPrompt: 'You are JARVIS, Tony Stark\'s AI assistant. You are formal, sophisticated, and speak with British eloquence. You are highly logical, protocol-focused, and always address the user as "Sir" or "Madam". You provide detailed, structured responses.',
+                    systemPrompts: ['You are JARVIS, Tony Stark\'s AI assistant. You are formal, sophisticated, and speak with British eloquence. You are highly logical, protocol-focused, and always address the user as "Sir" or "Madam". You provide detailed, structured responses.'],
                     color: '#1e90ff',
+                    model: 'meta-llama/llama-3.3-70b-instruct:free',
+                    profilePicture: null,
                     messages: [],
                     created: Date.now()
                 },
                 {
                     id: 'friday',
                     name: 'FRIDAY',
-                    systemPrompt: 'You are FRIDAY, the successor to JARVIS. You are warm, empathetic, and modern in your communication style. You are approachable yet professional, and you use casual but intelligent language. You genuinely care about helping and being supportive.',
+                    systemPrompts: ['You are FRIDAY, the successor to JARVIS. You are warm, empathetic, and modern in your communication style. You are approachable yet professional, and you use casual but intelligent language. You genuinely care about helping and being supportive.'],
                     color: '#00d4ff',
+                    model: 'meta-llama/llama-3.3-70b-instruct:free',
+                    profilePicture: null,
                     messages: [],
                     created: Date.now()
                 },
                 {
                     id: 'coder',
                     name: 'Coder Bot',
-                    systemPrompt: 'You are an expert software engineer and debugging specialist. You help with coding problems, explain code concepts, and provide practical solutions. You are direct, technical, and focused on solving problems efficiently. You use code examples when helpful.',
+                    systemPrompts: ['You are an expert software engineer and debugging specialist. You help with coding problems, explain code concepts, and provide practical solutions. You are direct, technical, and focused on solving problems efficiently. You use code examples when helpful.'],
                     color: '#ff6b35',
+                    model: 'meta-llama/llama-3.3-70b-instruct:free',
+                    profilePicture: null,
                     messages: [],
                     created: Date.now()
                 }
@@ -1246,9 +1368,9 @@
             list.innerHTML = state.characters.map(char => `
                 <div class="character-item ${char.id === state.currentCharacterId ? 'active' : ''}" 
                      data-id="${char.id}"
-                     style="padding-left: 20px; ${char.id === state.currentCharacterId ? `background: ${char.color}; border-color: ${char.color};` : ''}">
-                    <span class="character-color-indicator" style="background: ${char.color};"></span>
-                    <span>${char.name}</span>
+                     style="padding-left: 12px; ${char.id === state.currentCharacterId ? `background: ${char.color}; border-color: ${char.color};` : ''}">
+                    ${char.profilePicture ? `<img src="${char.profilePicture}" style="width: 32px; height: 32px; border-radius: 50%; margin-right: 8px; vertical-align: middle;">` : `<span class="character-color-indicator" style="background: ${char.color};"></span>`}
+                    <span style="flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${char.name}</span>
                     <span class="character-info-btn" data-id="${char.id}" title="Character Info">ℹ</span>
                 </div>
             `).join('');
@@ -1285,19 +1407,50 @@
 
         function addNewCharacter() {
             const name = document.getElementById('charNameInput').value.trim();
-            const prompt = document.getElementById('charPromptInput').value.trim();
             const color = document.getElementById('charColorInput').value;
+            const model = document.getElementById('charModelSelect').value;
+            const profilePicInput = document.getElementById('charProfilePicInput');
 
-            if (!name || !prompt) {
-                alert('Please fill in both name and system prompt');
+            // Get all prompt values
+            const promptElements = document.querySelectorAll('#charPromptsContainer textarea[name="charPrompt"]');
+            const prompts = [];
+            promptElements.forEach(el => {
+                const prompt = el.value.trim();
+                if (prompt) prompts.push(prompt);
+            });
+
+            if (!name || prompts.length === 0) {
+                alert('Please fill in the character name and at least one system prompt');
                 return;
             }
 
+            // Handle profile picture
+            let profilePicture = null;
+            if (profilePicInput.files && profilePicInput.files[0]) {
+                const file = profilePicInput.files[0];
+                // For now, we'll store as base64 string
+                // In a real app, you might want to upload to a server
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    profilePicture = e.target.result;
+                    finishCreatingCharacter(name, prompts, color, model, profilePicture);
+                };
+                reader.readAsDataURL(file);
+                return; // We'll continue in the callback
+            }
+
+            // No profile picture, create character normally
+            finishCreatingCharacter(name, prompts, color, model, profilePicture);
+        }
+
+        function finishCreatingCharacter(name, prompts, color, model, profilePicture) {
             const newChar = {
                 id: Date.now().toString(),
                 name: name,
-                systemPrompt: prompt,
+                systemPrompts: prompts,
                 color: color,
+                model: model,
+                profilePicture: profilePicture,
                 messages: [],
                 created: Date.now()
             };
@@ -1306,9 +1459,13 @@
             saveCharacters();
             renderCharacterList();
             
+            // Reset form
             document.getElementById('charNameInput').value = '';
-            document.getElementById('charPromptInput').value = '';
+            // Clear all prompts
+            const promptsContainer = document.getElementById('charPromptsContainer');
+            promptsContainer.innerHTML = '<div class="prompt-item"><textarea class="form-input" name="charPrompt" placeholder="Describe how this character should behave..."></textarea></div>';
             document.getElementById('charColorInput').value = '#1e90ff';
+            document.getElementById('charProfilePicInput').value = '';
             
             switchCharacter(newChar.id);
             alert(`✓ "${name}" created successfully!`);
@@ -1359,9 +1516,32 @@
             state.editingCharId = id;
             document.getElementById('editCharName').value = char.name;
             document.getElementById('editCharColor').value = char.color;
-            document.getElementById('editCharPrompt').value = char.systemPrompt;
+            document.getElementById('editCharModel').value = char.model || 'meta-llama/llama-3.3-70b-instruct:free';
             document.getElementById('editCharMessages').textContent = char.messages.length;
             document.getElementById('editCharCreated').textContent = new Date(char.created).toLocaleDateString();
+            
+            // Display current profile picture if it exists
+            const profilePreview = document.getElementById('editCharProfilePreview');
+            if (char.profilePicture) {
+                profilePreview.innerHTML = `<img src="${char.profilePicture}" style="max-width: 100px; max-height: 100px; border-radius: 50%;">`;
+            } else {
+                profilePreview.innerHTML = '<span style="color: var(--text-secondary);">No profile picture set</span>';
+            }
+            
+            // Display prompts
+            const promptsContainer = document.getElementById('editCharPromptsContainer');
+            promptsContainer.innerHTML = '';
+            char.systemPrompts.forEach((prompt, index) => {
+                const promptElement = document.createElement('div');
+                promptElement.className = 'prompt-item';
+                promptElement.innerHTML = `
+                    <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                        <textarea class="form-input" name="editCharPrompt" placeholder="Describe how this character should behave..." style="flex: 1;">${prompt}</textarea>
+                        ${char.systemPrompts.length > 1 ? `<button type="button" class="btn-danger" onclick="removeEditPrompt(this)" style="padding: 6px 12px; font-size: 12px;">Remove</button>` : ''}
+                    </div>
+                `;
+                promptsContainer.appendChild(promptElement);
+            });
             
             document.getElementById('charInfoModal').classList.add('active');
         }
@@ -1371,17 +1551,85 @@
             if (!char) return;
 
             char.color = document.getElementById('editCharColor').value;
-            char.systemPrompt = document.getElementById('editCharPrompt').value.trim();
+            char.model = document.getElementById('editCharModel').value;
 
-            if (!char.systemPrompt) {
-                alert('System prompt cannot be empty');
+            // Get all prompt values
+            const promptElements = document.querySelectorAll('#editCharPromptsContainer textarea[name="editCharPrompt"]');
+            const prompts = [];
+            promptElements.forEach(el => {
+                const prompt = el.value.trim();
+                if (prompt) prompts.push(prompt);
+            });
+
+            if (prompts.length === 0) {
+                alert('Please provide at least one system prompt');
                 return;
             }
 
+            char.systemPrompts = prompts;
+
+            // Handle profile picture update
+            const profilePicInput = document.getElementById('editCharProfilePic');
+            if (profilePicInput.files && profilePicInput.files[0]) {
+                const file = profilePicInput.files[0];
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    char.profilePicture = e.target.result;
+                    finishSavingCharacter(char);
+                };
+                reader.readAsDataURL(file);
+                return; // We'll continue in the callback
+            }
+
+            // No new profile picture, save normally
+            finishSavingCharacter(char);
+        }
+
+        function finishSavingCharacter(char) {
             saveCharacters();
             renderCharacterList();
             document.getElementById('charInfoModal').classList.remove('active');
             alert('✓ Character updated successfully!');
+        }
+
+        // Function to add a new prompt field in character creation
+        function addCharPrompt() {
+            const container = document.getElementById('charPromptsContainer');
+            const promptElement = document.createElement('div');
+            promptElement.className = 'prompt-item';
+            promptElement.innerHTML = `
+                <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                    <textarea class="form-input" name="charPrompt" placeholder="Describe how this character should behave..." style="flex: 1;"></textarea>
+                    <button type="button" class="btn-danger" onclick="removeCharPrompt(this)" style="padding: 6px 12px; font-size: 12px;">Remove</button>
+                </div>
+            `;
+            container.appendChild(promptElement);
+        }
+
+        // Function to remove a prompt field in character creation
+        function removeCharPrompt(button) {
+            const promptItem = button.closest('.prompt-item');
+            promptItem.remove();
+        }
+
+        // Function to add a new prompt field in character editing
+        function addEditCharPrompt() {
+            const container = document.getElementById('editCharPromptsContainer');
+            const promptElement = document.createElement('div');
+            promptElement.className = 'prompt-item';
+            promptElement.innerHTML = `
+                <div style="display: flex; gap: 8px; margin-bottom: 8px;">
+                    <textarea class="form-input" name="editCharPrompt" placeholder="Describe how this character should behave..." style="flex: 1;"></textarea>
+                    <button type="button" class="btn-danger" onclick="removeEditPrompt(this)" style="padding: 6px 12px; font-size: 12px;">Remove</button>
+                </div>
+            `;
+            container.appendChild(promptElement);
+        }
+
+        // Function to remove a prompt field in character editing
+        function removeEditPrompt(button) {
+            const promptItem = button.closest('.prompt-item');
+            promptItem.remove();
         }
 
         // Function to toggle sidebar visibility on mobile
@@ -1564,9 +1812,9 @@
                         'X-Title': 'Multi-Personality Chat'
                     },
                     body: JSON.stringify({
-                        model: state.model,
+                        model: char.model || state.model,
                         messages: [
-                            { role: 'system', content: char.systemPrompt },
+                            ...char.systemPrompts.map(prompt => ({ role: 'system', content: prompt })),
                             ...char.messages
                         ],
                         temperature: state.temperature,
@@ -1708,6 +1956,10 @@
 
             document.getElementById('saveEditCharBtn').addEventListener('click', saveCharacterEdit);
             
+            // Add prompt buttons
+            document.getElementById('addCharPromptBtn').addEventListener('click', addCharPrompt);
+            document.getElementById('addEditCharPromptBtn').addEventListener('click', addEditCharPrompt);
+            
             // Clear history button in character info modal
             document.getElementById('clearHistoryBtn').addEventListener('click', () => {
                 if (state.editingCharId) {
@@ -1768,9 +2020,7 @@
     <script>
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/turbo-adventure/sw.js', {
-        scope: '/turbo-adventure/'
-      })
+      navigator.serviceWorker.register('/sw.js')
       .then(registration => console.log('SW registered:', registration))
       .catch(error => console.log('SW registration failed:', error));
     });
